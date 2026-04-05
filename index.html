@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPC in Cryptography - Research Paper</title>
+
     <style>
         * {
             margin: 0;
@@ -13,9 +14,7 @@
 
         body {
             font-family: 'Georgia', serif;
-            line-height: 1.8;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
             color: #333;
         }
 
@@ -23,166 +22,61 @@
             max-width: 850px;
             margin: 40px auto;
             background: #fff;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 40px;
             text-align: center;
+            padding: 40px;
         }
 
         .header h1 {
             font-size: 1.8rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
 
         .header .subtitle {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
         }
 
         .meta-info {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-            font-size: 0.9rem;
+            margin-top: 15px;
         }
 
         .meta-info span {
+            margin: 5px;
+            padding: 5px 12px;
             background: rgba(255,255,255,0.2);
-            padding: 5px 15px;
             border-radius: 20px;
+            font-size: 0.9rem;
         }
 
         .content {
-            padding: 50px;
-        }
-
-        .abstract {
-            background: #f8f9fa;
-            padding: 25px;
-            border-left: 4px solid #667eea;
-            margin-bottom: 30px;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .abstract h2 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+            padding: 40px;
         }
 
         .section {
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         .section h2 {
-            color: #1a1a2e;
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            color: #667eea;
+            margin-bottom: 10px;
             border-bottom: 2px solid #667eea;
-        }
-
-        .section h3 {
-            color: #444;
-            font-size: 1.1rem;
-            margin: 20px 0 10px;
+            padding-bottom: 5px;
         }
 
         .section p {
             text-align: justify;
-            margin-bottom: 15px;
-        }
-
-        .code-block {
-            background: #1a1a2e;
-            color: #a5d6ff;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Consolas', monospace;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            margin: 15px 0;
-        }
-
-        .diagram {
-            background: #f0f4ff;
-            padding: 30px;
-            border-radius: 8px;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .diagram-box {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            margin: 10px;
-        }
-
-        .arrow {
-            display: inline-block;
-            font-size: 2rem;
-            color: #667eea;
-            vertical-align: middle;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: left;
-        }
-
-        th {
-            background: #667eea;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, #ffeaa7 0%, #ffeaa7 100%);
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-
-        .references {
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 8px;
-        }
-
-        .references h2 {
-            border-bottom: none;
-        }
-
-        .references ol {
-            padding-left: 25px;
-        }
-
-        .references li {
             margin-bottom: 10px;
-            font-size: 0.95rem;
         }
 
+        /* QR SECTION */
         .qr-section {
             text-align: center;
             padding: 30px;
@@ -190,66 +84,98 @@
             color: white;
         }
 
-        .qr-section h3 {
-            margin-bottom: 15px;
+        .qr-box {
+            margin: 20px auto;
+            width: 180px;
+            height: 180px;
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
         }
 
-        .qr-placeholder {
-            width: 150px;
-            height: 150px;
-            background: white;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .qr-box img {
+            width: 100%;
+            height: 100%;
             border-radius: 8px;
         }
 
-        @media print {
-            body {
-                background: white;
-            }
-            .paper-container {
-                box-shadow: none;
-                margin: 0;
-            }
-            .qr-section {
-                display: none;
-            }
+        .scan-text {
+            margin-top: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+
+        .small-text {
+            font-size: 0.85rem;
+            opacity: 0.8;
         }
     </style>
 </head>
+
 <body>
-    <div class="paper-container">
-        <div class="header">
-            <h1>Inter-Process Communication in Cryptographic Systems</h1>
-            <p class="subtitle">Secure Data Exchange Mechanisms and Implementation Strategies</p>
-            <div class="meta-info">
-                <span>📚 Cryptography Course</span>
-                <span>👤 Your Name</span>
-                <span>📅 2026</span>
-            </div>
+
+<div class="paper-container">
+
+    <div class="header">
+        <h1>Inter-Process Communication in Cryptography</h1>
+        <p class="subtitle">Secure Data Exchange Mechanisms</p>
+
+        <div class="meta-info">
+            <span>📚 Cryptography</span>
+            <span>👤 Your Name</span>
+            <span>📅 2026</span>
         </div>
-
-        
-
-            
-
-        <div class="qr-section">
-    <h3>📱 Scan to View Full Paper</h3>
-    
-    <div class="qr-placeholder">
-        <img src="C:\Users\prasuna\Downloads\qr-code.png.png" alt="QR Code"
-             style="width:100%; height:100%; border-radius:8px;">
     </div>
 
-    <p style="margin-top: 15px; font-size: 0.9rem;">
-        👀 Scan Me If You’re Curious
-    </p>
+    <div class="content">
 
-    <p style="margin-top: 5px; font-size: 0.8rem; opacity: 0.8;">
-        Access the full research paper online
-    </p>
+        <div class="section">
+            <h2>Abstract</h2>
+            <p>
+                Inter-Process Communication (IPC) plays a crucial role in secure systems,
+                enabling processes to exchange data efficiently. In cryptography,
+                IPC ensures safe communication using encryption techniques.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Key Concepts</h2>
+            <p>
+                IPC methods include pipes, message queues, shared memory, and sockets.
+                These are combined with encryption to provide confidentiality and integrity.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Applications</h2>
+            <p>
+                Used in secure messaging apps, banking systems, and operating systems
+                where multiple processes must communicate securely.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- QR SECTION -->
+    <div class="qr-section">
+        <h3>📱 Scan to View Full Paper</h3>
+
+        <div class="qr-box">
+            <!-- IMPORTANT LINE -->
+           <img src="qr-code.png" alt="QR Code">
+        </div>
+
+        <div class="scan-text">
+            🔐 Scan Me to Explore More
+        </div>
+
+        <div class="small-text">
+            Interactive Poster with QR Integration
+        </div>
+    </div>
+
 </div>
+
 </body>
 </html>
